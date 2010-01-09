@@ -1,0 +1,36 @@
+<pre>
+rails server
+cd server
+script/generate scaffold order location:string status:string
+script/generate scaffold item milk:string size:string drink:string
+script/generate scaffold payment amount:double cardholder_name:string card_number:string expiry_month:int expiry_year:int payment_date:datetime
+script/generate migration add_order_relationship
+</pre>
+
+add relationships between order, payment and items
+
+<pre>
+rake db:create:all
+rake db:migrate
+</pre>
+
+
+TODO
+- *take* no controller tem um if no save que deveria ser bonito
+- method *take* could be on the restfulie controller
+- update order
+- no payments_controller, render_created nao esta funcionando
+- payment/view eh feio... deveria ser so payment com GET e com POST
+
+
+try {
+    OrderRepresentation responseRepresentation = new UpdateOrderActivity().update(OrderRepresentation.fromXmlString(orderRepresentation).getOrder(), new RestbucksUri(uriInfo.getRequestUri()));
+    return Response.ok().entity(responseRepresentation).build();
+} catch (InvalidOrderException ioe) {
+    return Response.status(Status.BAD_REQUEST).build();
+} catch (NoSuchOrderException nsoe) {
+    return Response.status(Status.NOT_FOUND).build();
+} catch(UpdateException ue) {
+    return Response.status(Status.CONFLICT).build();
+} catch (Exception ex) {
+    return Response.serverError().build();
