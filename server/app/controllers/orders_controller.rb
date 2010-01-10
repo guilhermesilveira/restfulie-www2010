@@ -45,7 +45,7 @@ class OrdersController < ApplicationController
   def take
     @model = model_type.find(params[:id])
     if @model.status=="ready"
-      @model.status = "taken"
+      @model.status = "delivered"
       if @model.save
         head :ok
       else
@@ -54,6 +54,20 @@ class OrdersController < ApplicationController
     else
       head :status => 405
     end
+  end
+  
+  def update
+    # try {
+    #     OrderRepresentation responseRepresentation = new UpdateOrderActivity().update(OrderRepresentation.fromXmlString(orderRepresentation).getOrder(), new RestbucksUri(uriInfo.getRequestUri()));
+    #     return Response.ok().entity(responseRepresentation).build();
+    # } catch (InvalidOrderException ioe) {
+    #     return Response.status(Status.BAD_REQUEST).build();
+    # } catch (NoSuchOrderException nsoe) {
+    #     return Response.status(Status.NOT_FOUND).build();
+    # } catch(UpdateException ue) {
+    #     return Response.status(Status.CONFLICT).build();
+    # } catch (Exception ex) {
+    #     return Response.serverError().build();
   end
 
 end

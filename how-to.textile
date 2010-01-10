@@ -16,21 +16,8 @@ rake db:migrate
 
 
 TODO
-- *take* no controller tem um if no save que deveria ser bonito
 - method *take* could be on the restfulie controller
 - update order
-- no payments_controller, render_created nao esta funcionando
-- payment/view eh feio... deveria ser so payment com GET e com POST
+- deixar o codigo mais bonito
+LATER: payment/view eh feio... deveria ser so payment com GET e com POST
 
-
-try {
-    OrderRepresentation responseRepresentation = new UpdateOrderActivity().update(OrderRepresentation.fromXmlString(orderRepresentation).getOrder(), new RestbucksUri(uriInfo.getRequestUri()));
-    return Response.ok().entity(responseRepresentation).build();
-} catch (InvalidOrderException ioe) {
-    return Response.status(Status.BAD_REQUEST).build();
-} catch (NoSuchOrderException nsoe) {
-    return Response.status(Status.NOT_FOUND).build();
-} catch(UpdateException ue) {
-    return Response.status(Status.CONFLICT).build();
-} catch (Exception ex) {
-    return Response.serverError().build();

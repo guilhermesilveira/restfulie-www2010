@@ -18,7 +18,7 @@ class PaymentsController < ApplicationController
     elsif @model.amount != @model.order.cost
       head :bad_request
     else
-      @model.order.status = "preparing"
+      @model.order.status = "ready"
       if @model.save && @model.order.save
         render_created @model
         # head 201, :location => payment_url(@model)
@@ -32,6 +32,11 @@ class PaymentsController < ApplicationController
   def show
     order = Order.find(params[:order_id])
     render_resource order.payment
+  end
+  
+  def receipt
+    order = Order.find(params[:order_id])
+    render :xml => order.payment.to_xml(:only => [:amount, :payment_date], :root => :receipt), :content_type => "application/xml"
   end
   
   # removes the charset, if present, extracting only the media type
