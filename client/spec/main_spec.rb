@@ -65,7 +65,7 @@ context Restfulie do
     order = order.self
     order.status.should eql("delivered")
     receipt = order.receipt
-    receipt.amount.should eql("10.0")
+    receipt.amount.should eql("20.0")
   end
 
 end
