@@ -14,10 +14,10 @@ rake db:create:all
 rake db:migrate
 </pre>
 
-
-TODO
-- method *take* could be on the restfulie controller
+MISSING
 - update order
-- deixar o codigo mais bonito
-LATER: payment/view eh feio... deveria ser so payment com GET e com POST
+
+TODO LATER
+- deixar o codigo mais bonito no controller
+- method *take* could be on the restfulie controller
 

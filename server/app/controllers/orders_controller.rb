@@ -37,14 +37,7 @@ class OrdersController < ApplicationController
     if @model.can_cancel?
       @model.delete
       head :ok
-    else
-      head :status => 405
-    end
-  end
-  
-  def take
-    @model = model_type.find(params[:id])
-    if @model.status=="ready"
+    elsif @model.is_ready?
       @model.status = "delivered"
       if @model.save
         head :ok

@@ -18,7 +18,7 @@ class PaymentsController < ApplicationController
     elsif @model.amount != @model.order.cost
       head :bad_request
     else
-      @model.order.status = "ready"
+      @model.order.status = "preparing"
       if @model.save && @model.order.save
         render_created @model
         # head 201, :location => payment_url(@model)
