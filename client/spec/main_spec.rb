@@ -1,6 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 context Restfulie do
+  
+  # how to process an order
+  #
+  # order = create_order
+  # order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost), :method => :post)
+  # sleep 20
+  # order.self.retrieve(:method => :delete)
+  # receipt = order.self.receipt
 
   def new_order(where)
     {:location => where, :items => [
@@ -45,19 +53,19 @@ context Restfulie do
   
   it "should not allow cancel an order if already paid" do
     order = create_order
-    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost)).web_response.code.should eql("200")
+    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost))
     order.cancel.web_response.code.should eql("405")
   end
   
   it "should not allow to pay twice" do
     order = create_order
-    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost)).web_response.code.should eql("200")
+    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost))
     order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost)).web_response.code.should eql("405")
   end
     
   it "should allow to take out and receive receipt" do
     order = create_order
-    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost), :method => :post).web_response.code.should eql("200")
+    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost), :method => :post)
     sleep 20
     order = order.self
     order.status.should eql("ready")
