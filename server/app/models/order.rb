@@ -30,10 +30,6 @@ class Order < ActiveRecord::Base
   def cost
     items.size * 10
   end
-
-  def can_cancel?
-    can? :cancel
-  end
   
   def is_ready?
     status == "ready"

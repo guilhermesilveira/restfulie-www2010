@@ -3,7 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 context Restfulie do
 
   def new_order
-    {:location => "TO_TAKE", :items => [{:drink => "latte", :milk => "DOUBLE", :size => "LARGE"}]}.to_xml(:root => "order")
+    {:location => "TO_TAKE", :items => [
+                {:drink => "latte", :milk => "DOUBLE", :size => "LARGE"},
+                {:drink => "latte", :milk => "DOUBLE", :size => "SMALL"}
+                    ]}.to_xml(:root => "order")
   end
 
   def payment(value)

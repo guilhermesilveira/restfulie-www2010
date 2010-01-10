@@ -9,7 +9,7 @@ class PaymentsController < ApplicationController
   def create
 
     type = model_type
-    return head 415 unless fits_content(type, media_type_for(request.headers['CONTENT_TYPE']))
+    return head 415 unless fits_content(type, request.headers['CONTENT_TYPE'])
 
     @model = type.from_xml request.body.string
     @model.order = Order.find(params[:order_id])
@@ -39,9 +39,4 @@ class PaymentsController < ApplicationController
     render :xml => order.payment.to_xml(:only => [:amount, :payment_date], :root => :receipt), :content_type => "application/xml"
   end
   
-  # removes the charset, if present, extracting only the media type
-  def media_type_for(content_type)
-    content_type[/[^;]*/]
-  end
-
 end
