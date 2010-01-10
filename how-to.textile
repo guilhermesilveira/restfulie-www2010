@@ -15,7 +15,7 @@ rake db:migrate
 </pre>
 
 MISSING
-- update order
+- update conflict
 
 TODO LATER
 - deixar o codigo mais bonito no controller

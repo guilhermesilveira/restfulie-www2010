@@ -23,18 +23,11 @@ class OrdersController < ApplicationController
     end
   end
   
-  def update
-    # try {
-    #     OrderRepresentation responseRepresentation = new UpdateOrderActivity().update(OrderRepresentation.fromXmlString(orderRepresentation).getOrder(), new RestbucksUri(uriInfo.getRequestUri()));
-    #     return Response.ok().entity(responseRepresentation).build();
-    # } catch (InvalidOrderException ioe) {
-    #     return Response.status(Status.BAD_REQUEST).build();
-    # } catch (NoSuchOrderException nsoe) {
-    #     return Response.status(Status.NOT_FOUND).build();
-    # } catch(UpdateException ue) {
-    #     return Response.status(Status.CONFLICT).build();
-    # } catch (Exception ex) {
-    #     return Response.serverError().build();
+  def pre_update(model)
+    model[:status] = "unpaid"
+    model["items"] = model["items"].map do |item|
+      Item.new(item)
+    end
   end
-
+  
 end

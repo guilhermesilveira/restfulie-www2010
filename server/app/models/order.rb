@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
     t << [:retrieve, {:id => order, :action => :destroy}] if order.is_ready?
     t << [:pay, {:action => :create, :controller => :payments, :order_id => order.id}] if order.status == "unpaid"
     t << [:receipt, {:order_id => order, :controller => :payments, :action => :receipt}] if order.status=="delivered"
+    t << [:update] if order.status == "unpaid"
   end
   
   media_type 'application/vnd.restbucks+xml'

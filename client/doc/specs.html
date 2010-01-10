@@ -182,15 +182,17 @@ a {
 <div class="example_group">
   <dl>
   <dt id="example_group_1">Restfulie</dt>
-    <script type="text/javascript">moveProgressBar('16.6');</script>
+    <script type="text/javascript">moveProgressBar('14.2');</script>
     <dd class="spec passed"><span class="passed_spec_name">should cancel an order and delete it from the database</span></dd>
-    <script type="text/javascript">moveProgressBar('33.3');</script>
+    <script type="text/javascript">moveProgressBar('28.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should update an order while possible</span></dd>
+    <script type="text/javascript">moveProgressBar('42.8');</script>
     <dd class="spec passed"><span class="passed_spec_name">should complain if partially paying</span></dd>
-    <script type="text/javascript">moveProgressBar('50.0');</script>
+    <script type="text/javascript">moveProgressBar('57.1');</script>
     <dd class="spec passed"><span class="passed_spec_name">should allow to pay</span></dd>
-    <script type="text/javascript">moveProgressBar('66.6');</script>
+    <script type="text/javascript">moveProgressBar('71.4');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not allow cancel an order if already paid</span></dd>
-    <script type="text/javascript">moveProgressBar('83.3');</script>
+    <script type="text/javascript">moveProgressBar('85.7');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not allow to pay twice</span></dd>
     <script type="text/javascript">makeRed('rspec-header');</script>
     <script type="text/javascript">makeRed('example_group_1');</script>
@@ -204,19 +206,19 @@ expected &quot;10.0&quot;
 
 (compared using eql?)
 </pre></div>
-        <div class="backtrace"><pre>./spec/main_spec.rb:61:</pre></div>
-    <pre class="ruby"><code><span class="linenum">59</span>    order.status.should eql("delivered")
-<span class="linenum">60</span>    receipt = order.receipt
-<span class="offending"><span class="linenum">61</span>    receipt.amount.should eql("10.0")</span>
-<span class="linenum">62</span>  end
-<span class="linenum">63</span>
-<span class="linenum">64</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+        <div class="backtrace"><pre>./spec/main_spec.rb:68:</pre></div>
+    <pre class="ruby"><code><span class="linenum">66</span>    order.status.should eql("delivered")
+<span class="linenum">67</span>    receipt = order.receipt
+<span class="offending"><span class="linenum">68</span>    receipt.amount.should eql("10.0")</span>
+<span class="linenum">69</span>  end
+<span class="linenum">70</span>
+<span class="linenum">71</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
       </div>
     </dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>22.174264 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "6 examples, 1 failure";</script>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>22.502772 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "7 examples, 1 failure";</script>
 </div>
 </div>
 </body>

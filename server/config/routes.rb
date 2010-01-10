@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :orders
+  
+  map.update_order '/orders/:id', :controller => :orders, :action => :update, :conditions => {:method => :put}
 
   map.create_payment '/orders/:order_id/payment', :controller => :payments, :action => :create, :conditions => {:method => :post}
   map.show_payment '/orders/:order_id/payment', :controller => :payments, :action => :show, :conditions => {:method => :get}

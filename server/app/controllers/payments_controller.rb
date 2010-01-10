@@ -21,7 +21,6 @@ class PaymentsController < ApplicationController
       @model.order.status = "preparing"
       if @model.save && @model.order.save
         render_created @model
-        # head 201, :location => payment_url(@model)
       else
         render :xml => @model.errors, :status => :unprocessable_entity
       end

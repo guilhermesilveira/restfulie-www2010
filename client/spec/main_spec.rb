@@ -2,8 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 context Restfulie do
 
-  def new_order
-    {:location => "TO_TAKE", :items => [
+  def new_order(where)
+    {:location => where, :items => [
                 {:drink => "latte", :milk => "DOUBLE", :size => "LARGE"},
                 {:drink => "latte", :milk => "DOUBLE", :size => "SMALL"}
                     ]}.to_xml(:root => "order")
@@ -13,8 +13,8 @@ context Restfulie do
     {:amount => value, :cardholder_name => "Guilherme Silveira", :card_number => "4004", :expiry_month => 10, :expiry_year => 12}.to_xml(:root => "payment")
   end
   
-  def create_order
-    Restfulie.at('http://localhost:3000/orders').as('application/vnd.restbucks+xml').create(new_order)
+  def create_order(where = "TO_TAKE")
+    Restfulie.at('http://localhost:3000/orders').as('application/vnd.restbucks+xml').create(new_order(where))
   end
     
   it "should cancel an order and delete it from the database" do
@@ -23,6 +23,13 @@ context Restfulie do
     cancelled = order.cancel
     cancelled.web_response.is_successful?.should be_true
     order.self.web_response.code.should eql("404")
+  end
+  
+  it "should update an order while possible" do
+    order = create_order
+    order = order.update(new_order("EAT_IN"), :method => :put)
+    order.web_response.is_successful?.should be_true
+    order.location.should eql("EAT_IN")
   end
   
   it "should complain if partially paying" do
