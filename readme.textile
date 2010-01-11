@@ -228,6 +228,7 @@ A well known rel is called self and links back to the resource, therefore using 
 	 sleep 20
    order.self.retrieve(:method => :delete)
    receipt = order.self.receipt
+	puts "Did something go wrong with the server? #{receipt.web_response.is_server_error?}"
 </pre>
 
 h3. Waiting for specific situations
