@@ -2,11 +2,13 @@ class Order < ActiveRecord::Base
   
   acts_as_restfulie do |order, t|
     t << [:self, {:action => :show}]
-    t << [:cancel, {:action => :destroy}] if order.status=="unpaid"
     t << [:retrieve, {:id => order, :action => :destroy}] if order.is_ready?
-    t << [:pay, {:action => :create, :controller => :payments, :order_id => order.id}] if order.status == "unpaid"
     t << [:receipt, {:order_id => order, :controller => :payments, :action => :receipt}] if order.status=="delivered"
-    t << [:update] if order.status == "unpaid"
+  	if order.status=="unpaid"
+    	t << [:cancel, {:action => :destroy}]
+    	t << [:pay, {:action => :create, :controller => :payments, :order_id => order.id}]
+    	t << [:update]
+  	end
   end
   
   media_type 'application/vnd.restbucks+xml'
