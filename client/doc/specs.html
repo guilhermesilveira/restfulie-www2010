@@ -182,43 +182,41 @@ a {
 <div class="example_group">
   <dl>
   <dt id="example_group_1">Restfulie</dt>
-    <script type="text/javascript">moveProgressBar('14.2');</script>
+    <script type="text/javascript">moveProgressBar('12.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">should cancel an order and delete it from the database</span></dd>
-    <script type="text/javascript">moveProgressBar('28.5');</script>
+    <script type="text/javascript">moveProgressBar('25.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should update an order while possible</span></dd>
-    <script type="text/javascript">moveProgressBar('42.8');</script>
+    <script type="text/javascript">moveProgressBar('37.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">should complain if partially paying</span></dd>
-    <script type="text/javascript">moveProgressBar('57.1');</script>
+    <script type="text/javascript">moveProgressBar('50.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should allow to pay</span></dd>
-    <script type="text/javascript">moveProgressBar('71.4');</script>
+    <script type="text/javascript">moveProgressBar('62.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not allow cancel an order if already paid</span></dd>
-    <script type="text/javascript">moveProgressBar('85.7');</script>
+    <script type="text/javascript">moveProgressBar('75.0');</script>
     <dd class="spec passed"><span class="passed_spec_name">should not allow to pay twice</span></dd>
     <script type="text/javascript">makeRed('rspec-header');</script>
     <script type="text/javascript">makeRed('example_group_1');</script>
-    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <script type="text/javascript">moveProgressBar('87.5');</script>
     <dd class="spec failed">
       <span class="failed_spec_name">should allow to take out and receive receipt</span>
       <div class="failure" id="failure_1">
-        <div class="message"><pre>
-expected &quot;10.0&quot;
-     got &quot;20.0&quot;
-
-(compared using eql?)
-</pre></div>
-        <div class="backtrace"><pre>./spec/main_spec.rb:68:</pre></div>
-    <pre class="ruby"><code><span class="linenum">66</span>    order.status.should eql("delivered")
-<span class="linenum">67</span>    receipt = order.receipt
-<span class="offending"><span class="linenum">68</span>    receipt.amount.should eql("10.0")</span>
-<span class="linenum">69</span>  end
-<span class="linenum">70</span>
-<span class="linenum">71</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+        <div class="message"><pre></pre></div>
+        <div class="backtrace"><pre>./spec/main_spec.rb:69:in `sleep'
+./spec/main_spec.rb:69:</pre></div>
+    <pre class="ruby"><code><span class="linenum">67</span>    order = create_order
+<span class="linenum">68</span>    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost), :method => :post)
+<span class="offending"><span class="linenum">69</span>    sleep 20</span>
+<span class="linenum">70</span>    order = order.self
+<span class="linenum">71</span>    order.status.should eql("ready")
+<span class="linenum">72</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
       </div>
     </dd>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should work with twitter</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>22.502772 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "7 examples, 1 failure";</script>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>9.24311 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "8 examples, 1 failure";</script>
 </div>
 </div>
 </body>

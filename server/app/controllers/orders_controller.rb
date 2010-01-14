@@ -13,11 +13,7 @@ class OrdersController < ApplicationController
       head :ok
     elsif @model.can? :retrieve
       @model.status = "delivered"
-      if @model.save
-        head :ok
-      else
-        head :unable_to_save
-      end
+      @model.save!
     else
       head :status => 405
     end

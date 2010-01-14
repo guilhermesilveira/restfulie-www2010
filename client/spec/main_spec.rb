@@ -75,5 +75,12 @@ context Restfulie do
     receipt = order.receipt
     receipt.amount.should eql("20.0")
   end
+  
+  it "should work with twitter" do
+    statuses = Restfulie.at("http://twitter.com/statuses/public_timeline.xml").get
+    statuses.each do |status|
+      puts "#{status.user.screen_name}: #{status.text}, #{status.created_at}"
+    end
+  end
 
 end

@@ -1,3 +1,4 @@
+<html>
 Introduction
 
 Hypermedia as the Engine of Application State
@@ -9,13 +10,13 @@ Contracts
   Media Types
   Protocols
 
-h1. Restfulie - A Hypermedia Framework
+<h1> Restfulie - A Hypermedia Framework</h1>
 
-h2. Architecture
+<h2> Architecture</h2>
 
 Restfulie is based in client and server components independent from each other and our focus will be in the Rails port, more mature therefore currently containing most features implemented compared to the other languages available.
 
-h3. Common architecture
+<h3> Common architecture</h3>
 
 In every language Restfulie's server API is based in content type negotiation, hypermedia capable serialization and controller enhancement.
 
@@ -27,7 +28,7 @@ Web mvc frameworks usually support default REST behavior related to specific htt
 
 On the client side, Restfulie's handles content type negotiation and hypermedia capable serialization as the counter part in a request-response http communication. It's unique feature is based on how resource relations and state transitions are exposed and "browsed" through its API.
 
-h3. Specific technologies
+<h3> Specific technologies</h3>
 
 The rails gem is supported on the server side by Ruby on Rails [link_on_notes]. On the client side, the serialization is done based on the active_support gem and dynamic hashes can be accessed due to jeokkarak's [link_on_notes].
 
@@ -35,19 +36,19 @@ The Java serialization tool chosen to be enhanced in order to support hypermedia
 
 On the client side, the Apache HTTP Client API [link_on_notes] is used to provide http communication with the server.
 
-h3. Other languages
+<h3> Other languages</h3>
 
 There is a Restfulie C# client API [link_on_notes] already built and a Erlang port [link_on_notes], with a completely different approach in the server side due to its functional language characteristics, is being written.
 
-h2. Restfulie: ruby example
+<h2> Restfulie: ruby example</h2>
 
-h3. Configuring a Rails application
+<h3> Configuring a Rails application</h3>
 
 In order to support our examples, a simple rails application needs to be created, based in an coffee ordering system. An order is composed of a location (eat in or take out), it's status and items. Every item has a milk type, size and drink name.
 
 In order to pay for the order, a payment is composed by it's amount, cardholder's name, card's number, it's expiry month and year.
 
-h3. Server side domain model
+<h3> Server side domain model</h3>
 
 A representation of that Order model in Rails would define the order resource relations (its payment and receipt) and transitions (pay, cancel, retrieve and update) through the Restfulie API. One of the possibilities follows:
 
@@ -68,7 +69,7 @@ class Order < ActiveRecord::Base
 end
 </pre>
 
-h3. Custom media type and hypermedia support
+<h3> Custom media type and hypermedia support</h3>
 
 Restfulie knows how to provide resource's representations for clients willing a 'application/xml', 'json' and 'xhtml' content. Although the first two do not understand elements as hypermedia links, but as text, the representations can be built with such media types.
 
@@ -128,7 +129,7 @@ Savas, can you fix this request, I am not sure...
 </order>
 </pre>
 
-h3. Resource creation
+<h3> Resource creation</h3>
 
 Restfulie's default behaviour while creating a resource is to use its representation to create an object related to our domain and save it to the database.
 
@@ -141,14 +142,14 @@ If a resource creation is successful, Restfulie returns a 201 response with the 
 Location: http://localhost:3000/orders/250	
 </pre>
 
-h3. Resource retrieval
+<h3> Resource retrieval</h3>
 
 Restfulie will negotiate the resource media type to be returned according to the HTTP specification of the Accept header.
 The default resource retrieval behavior is to locate the resource, return 404 if not found, and return the resource representation that best matches the desires of the client.
 
 ETag and Last-modified headers are added by default on the response, therefore even simple Rails application could benefit from using Restfulie, even though they might not use content negotiation or hypermedia: Restfulie generate content modification related headers by default.
 
-h3. Resource removal
+<h3> Resource removal</h3>
 
 Because Restfulie's default behaviour is to allow resource removal, we have to override it and implement two different processes through the order URI that can be achieved via a DELETE request: cancel the order if its still unpaid or deliver the order if it has already been processed:
 
@@ -160,11 +161,7 @@ Because Restfulie's default behaviour is to allow resource removal, we have to o
       head :ok
     elsif @model.can? :retrieve
       @model.status = "delivered"
-      if @model.save
-        head :ok
-      else
-        head :unable_to_save
-      end
+      @model.save!
     else
       head :status => 405
     end
@@ -173,13 +170,13 @@ Because Restfulie's default behaviour is to allow resource removal, we have to o
 
 As usual, a request to this URI with the DELETE verb when the resource is not supporting it returns a 405.
 
-h3. Resource update
+<h3> Resource update</h3>
 
 Restfulie's default resource update process is to read the content received in a PUT request body and use it in the same way that the create behaviour would, but updating the entire resource in the server.
 
 A PATCH default implementation is not yet provided but on the roadmap for a upcoming release, with a simple modification to only update incoming information.
 
-h3. Client side content
+<h3> Client side content</h3>
 
 The easiest approach to using Restfulie on the client side is to access ActiveSupport to_??? method based on hashes in order to generate your request body's content. The following examples show how to generate xml based content:
 
@@ -211,7 +208,7 @@ Restfulie response will automatically deserialize the response body, if possible
 	puts response.web_response.is_successful?
 </pre>
 
-h3. Client side navigation
+<h3> Client side navigation</h3>
 
 After deserializing a response body, Restfulie analyses its relations and allows the client to browse through the resource's relations and state transitions by invoking related methods.
 
@@ -231,7 +228,7 @@ A well known rel is called self and links back to the resource, therefore using 
 	puts "Did something go wrong with the server? #{receipt.web_response.is_server_error?}"
 </pre>
 
-h3. Waiting for specific situations
+<h3> Waiting for specific situations</h3>
 
 In some situations, a client wants to poll the server until some specific relation is available. For example, the client is waiting for its order to be ready so it can pick it up.
 
@@ -250,7 +247,7 @@ One can check whether a relation is available by querying the Ruby object:
 
 Restfulie sends the received Etag and Last-modified information back to the server and while the order has not changed, the server shall respond with 304. Restfulie will then return the object itself, working as a local cache to the application, losing latency but avoiding excessive bandwidth usage.
 
-h3. Client side domain mapping
+<h3> Client side domain mapping</h3>
 
 Restfulie allows clients to use their own classes. We have used hashes as objects so far due to jeokkarak's support: our order and receipt were jeokkarak objects that answer to method calls as hash accesses.
 
@@ -263,14 +260,19 @@ class Order
 end
 </pre>
 
-h1. Conclusion
+<h1> Conclusion</h1>
 
 
 
-h1. Misc things Guilherme might do if you want
+<h1> Misc things Guilherme might do if you want</h1>
+
+JUST COMMENT
+- 405 on update
+
+IMPLEMENT AND COMMENT
+- update conflict (missing, I should have done it)
 
 MISSING
-- update conflict (missing, I should have done it)
 - should I add "Adaptable" clients (as per the chapter5 example with the big loop)?
 - a simple atom feed section?
 - a coming next: 'open search default behaviour for free' section
@@ -287,3 +289,5 @@ TODO LATER
 - deixar o codigo mais bonito no controller
 - method *take* could be on the restfulie controller
 - clientside domain mapping should not require to_xml and media_type sending
+
+</html>
