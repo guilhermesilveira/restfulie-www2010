@@ -24,12 +24,12 @@ context Restfulie do
   def create_order(where = "TO_TAKE")
     Restfulie.at('http://localhost:3000/orders').as('application/vnd.restbucks+xml').create(new_order(where))
   end
-    
+      
   it "should cancel an order and delete it from the database" do
     order = create_order
     order.web_response.is_successful?.should be_true
     cancelled = order.cancel
-    cancelled.web_response.is_successful?.should be_true
+    cancelled.web_response.should be_is_successful
     order.self.web_response.code.should eql("404")
   end
   
@@ -47,40 +47,42 @@ context Restfulie do
   
   it "should allow to pay" do
     order = create_order
-    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost)).web_response.code.should eql("200")
-    order.self.status.should eql("preparing")
-  end
-  
-  it "should not allow cancel an order if already paid" do
-    order = create_order
-    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost))
-    order.cancel.web_response.code.should eql("405")
-  end
-  
-  it "should not allow to pay twice" do
-    order = create_order
-    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost))
-    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost)).web_response.code.should eql("405")
+    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost)).web_response.code.should == "200"
+    order = order.self
+    order.web_response.code.should == "200"
+    order.status.should eql("preparing")
   end
     
-  it "should allow to take out and receive receipt" do
-    order = create_order
-    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost), :method => :post)
-    sleep 20
-    order = order.self
-    order.status.should eql("ready")
-    order.retrieve(:method => :delete)
-    order = order.self
-    order.status.should eql("delivered")
-    receipt = order.receipt
-    receipt.amount.should eql("20.0")
-  end
-  
-  it "should work with twitter" do
-    statuses = Restfulie.at("http://twitter.com/statuses/public_timeline.xml").get
-    statuses.each do |status|
-      puts "#{status.user.screen_name}: #{status.text}, #{status.created_at}"
+    it "should not allow cancel an order if already paid" do
+      order = create_order
+      order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost))
+      order.cancel.web_response.code.should eql("405")
     end
-  end
+    
+    it "should not allow to pay twice" do
+      order = create_order
+      order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost))
+      order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost)).web_response.code.should eql("405")
+    end
+      
+    it "should allow to take out and receive receipt" do
+      order = create_order
+      order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost), :method => :post)
+      sleep 20
+      order = order.self
+      order.status.should eql("ready")
+      order.retrieve(:method => :delete)
+      order = order.self
+      order.status.should eql("delivered")
+      receipt = order.receipt
+      receipt.amount.should eql("20.0")
+    end
+    
+    it "should work with twitter" do
+      statuses = Restfulie.at("http://twitter.com/statuses/public_timeline.xml").get
+      statuses.each do |status|
+        puts "#{status.user.screen_name}: #{status.text}, #{status.created_at}"
+      end
+    end
 
 end

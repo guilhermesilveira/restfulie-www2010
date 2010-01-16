@@ -14,6 +14,7 @@ class OrdersController < ApplicationController
     elsif @model.can? :retrieve
       @model.status = "delivered"
       @model.save!
+      head :ok
     else
       head :status => 405
     end

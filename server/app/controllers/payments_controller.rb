@@ -9,7 +9,7 @@ class PaymentsController < ApplicationController
   def create
 
     type = model_type
-    return head 415 unless fits_content(type, request.headers['CONTENT_TYPE'])
+    return head(415) unless fits_content(type, request.headers['CONTENT_TYPE'])
 
     @model = type.from_xml request.body.string
     @model.order = Order.find(params[:order_id])

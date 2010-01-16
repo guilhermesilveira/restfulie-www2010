@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  
+
   acts_as_restfulie do |order, t|
     t << [:self, {:action => :show}]
     t << [:retrieve, {:id => order, :action => :destroy}] if order.is_ready?
