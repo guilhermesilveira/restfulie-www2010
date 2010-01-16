@@ -6,7 +6,7 @@ one:
   cardNumber: MyString
   expiryMonth: 
   expiryYear: 
-  paymentDate: 2010-01-08 18:50:27
+  paymentDate: 2010-01-16 21:05:54
 
 two:
   amount: 
@@ -14,4 +14,4 @@ two:
   cardNumber: MyString
   expiryMonth: 
   expiryYear: 
-  paymentDate: 2010-01-08 18:50:27
+  paymentDate: 2010-01-16 21:05:54

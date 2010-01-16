@@ -1,51 +1,85 @@
 class OrdersController < ApplicationController
-  
-  include Restfulie::Server::Controller
-  
+  # GET /orders
+  # GET /orders.xml
   def index
     @orders = Order.all
-  end
-  
-  def destroy
-    @model = model_type.find(params[:id])
-    if @model.can? :cancel
-      @model.delete
-      puts "IVE DELETED THIS GUY!!! #{@model.id}"
-      # head :ok
-    elsif @model.can? :retrieve
-      @model.status = "delivered"
-      @model.save!
-      head :ok
-    else
-      head :status => 405
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @orders }
     end
   end
-  
-  def pre_update(model)
-    debugger
-    model[:status] = "unpaid"
-    model["items"] = []
-    # model["items"].map do |item|
-      # Item.new(item)
-    # end
+
+  # GET /orders/1
+  # GET /orders/1.xml
+  def show
+    @order = Order.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @order }
+    end
   end
 
+  # GET /orders/new
+  # GET /orders/new.xml
+  def new
+    @order = Order.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @order }
+    end
+  end
+
+  # GET /orders/1/edit
+  def edit
+    @order = Order.find(params[:id])
+  end
+
+  # POST /orders
+  # POST /orders.xml
+  def create
+    @order = Order.new(params[:order])
+
+    respond_to do |format|
+      if @order.save
+        flash[:notice] = 'Order was successfully created.'
+        format.html { redirect_to(@order) }
+        format.xml  { render :xml => @order, :status => :created, :location => @order }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /orders/1
+  # PUT /orders/1.xml
   def update
-    @loaded = model_type.find(params[:id])
-    return head :status => 405 unless @loaded.can? :update
+    @order = Order.find(params[:id])
 
-    type = model_type
-    return head 415 unless fits_content(type, request.headers['CONTENT_TYPE'])
-
-    debugger
-    @model = Hash.from_xml(request.body.string)[model_name]
-    pre_update(@model) if self.respond_to?(:pre_update)
-    
-    if @loaded.update_attributes(@model)
-      render_resource @loaded
-    else
-      render :xml => @loaded.errors, :status => :unprocessable_entity
+    respond_to do |format|
+      if @order.update_attributes(params[:order])
+        flash[:notice] = 'Order was successfully updated.'
+        format.html { redirect_to(@order) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
+  # DELETE /orders/1
+  # DELETE /orders/1.xml
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(orders_url) }
+      format.xml  { head :ok }
+    end
+  end
 end

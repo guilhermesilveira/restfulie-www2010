@@ -1,11 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :orders
-  
-  map.update_order '/orders/:id', :controller => :orders, :action => :update, :conditions => {:method => :put}
+  map.resources :payments
 
-  map.create_payment '/orders/:order_id/payment', :controller => :payments, :action => :create, :conditions => {:method => :post}
-  map.show_payment '/orders/:order_id/payment', :controller => :payments, :action => :show, :conditions => {:method => :get}
-  map.show_receipt '/orders/:order_id/receipt', :controller => :payments, :action => :receipt
+  map.resources :items
+
+  map.resources :orders
 
   # The priority is based upon order of creation: first created -> highest priority.
 

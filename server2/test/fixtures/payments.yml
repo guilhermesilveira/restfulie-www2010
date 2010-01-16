@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  amount: 
+  cardholderName: MyString
+  cardNumber: MyString
+  expiryMonth: 
+  expiryYear: 
+  paymentDate: 2010-01-08 18:50:27
+
+two:
+  amount: 
+  cardholderName: MyString
+  cardNumber: MyString
+  expiryMonth: 
+  expiryYear: 
+  paymentDate: 2010-01-08 18:50:27
