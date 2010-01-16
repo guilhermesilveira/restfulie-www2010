@@ -182,12 +182,47 @@ a {
 <div class="example_group">
   <dl>
   <dt id="example_group_1">Restfulie</dt>
-    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <script type="text/javascript">moveProgressBar('12.5');</script>
     <dd class="spec passed"><span class="passed_spec_name">should cancel an order and delete it from the database</span></dd>
+    <script type="text/javascript">moveProgressBar('25.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should update an order while possible</span></dd>
+    <script type="text/javascript">moveProgressBar('37.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should complain if partially paying</span></dd>
+    <script type="text/javascript">moveProgressBar('50.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should allow to pay</span></dd>
+    <script type="text/javascript">moveProgressBar('62.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should not allow cancel an order if already paid</span></dd>
+    <script type="text/javascript">moveProgressBar('75.0');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should not allow to pay twice</span></dd>
+    <script type="text/javascript">moveProgressBar('87.5');</script>
+    <dd class="spec passed"><span class="passed_spec_name">should allow to take out and receive receipt</span></dd>
+    <script type="text/javascript">makeRed('rspec-header');</script>
+    <script type="text/javascript">makeRed('example_group_1');</script>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="spec failed">
+      <span class="failed_spec_name">should work with twitter</span>
+      <div class="failure" id="failure_1">
+        <div class="message"><pre>can't convert String into Integer</pre></div>
+        <div class="backtrace"><pre>/Library/Ruby/Gems/1.8/gems/restfulie-0.6.0/lib/restfulie/client/instance.rb:103:in `[]'
+/Library/Ruby/Gems/1.8/gems/restfulie-0.6.0/lib/restfulie/client/instance.rb:103:in `respond_to?'
+/Library/Ruby/Gems/1.8/gems/restfulie-0.6.0/lib/vendor/jeokkarak/hashi.rb:37:in `respond_to?'
+/Library/Ruby/Gems/1.8/gems/restfulie-0.6.0/lib/restfulie/client/request_execution.rb:37:in `enhance'
+/Library/Ruby/Gems/1.8/gems/restfulie-0.6.0/lib/restfulie/client/request_execution.rb:50:in `parse_get_response'
+/Library/Ruby/Gems/1.8/gems/restfulie-0.6.0/lib/restfulie/client/request_execution.rb:205:in `from_web'
+/Library/Ruby/Gems/1.8/gems/restfulie-0.6.0/lib/restfulie/client/request_execution.rb:157:in `get'
+./spec/main_spec.rb:82:</pre></div>
+    <pre class="ruby"><code><span class="linenum">101</span>  # TODO test this guy
+<span class="linenum">102</span>  def respond_to?(sym)
+<span class="offending"><span class="linenum">103</span>    extended_fields[sym.to_s].nil? ? super(sym) : true</span>
+<span class="linenum">104</span>  end
+<span class="linenum">105</span>
+<span class="linenum">106</span><span class="comment"># gem install syntax to get syntax highlighting</span></code></pre>
+      </div>
+    </dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.295015 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "1 example, 0 failures";</script>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>24.657145 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "8 examples, 1 failure";</script>
 </div>
 </div>
 </body>

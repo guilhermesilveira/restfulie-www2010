@@ -37,5 +37,9 @@ class Order < ActiveRecord::Base
   def is_ready?
     status == "ready"
   end
+
+  def etag
+    [self, payment]
+  end
   
 end

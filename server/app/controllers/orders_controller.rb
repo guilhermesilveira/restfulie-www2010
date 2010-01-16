@@ -26,5 +26,5 @@ class OrdersController < ApplicationController
       Item.new(item)
     end
   end
-  
+
 end
