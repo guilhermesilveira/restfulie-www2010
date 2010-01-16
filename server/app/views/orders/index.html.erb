@@ -2,19 +2,18 @@
 
 <table>
   <tr>
+    <th>Id</th>
     <th>Location</th>
     <th>Status</th>
+    <th>Link</th>
   </tr>
 
 <% @orders.each do |order| %>
   <tr>
+    <td><%=h order.id %></td>
     <td><%=h order.location %></td>
     <td><%=h order.status %></td>
     <td><%= link_to 'Show', "#{url_for(order)}.xml" %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New order', new_order_path %>

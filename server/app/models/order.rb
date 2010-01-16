@@ -6,8 +6,8 @@ class Order < ActiveRecord::Base
     t << [:receipt, {:order_id => order, :controller => :payments, :action => :receipt}] if order.status=="delivered"
   	if order.status=="unpaid"
     	t << [:cancel, {:action => :destroy}]
-    	t << [:pay, {:action => :create, :controller => :payments, :order_id => order.id}]
-    	t << [:update]
+      t << [:pay, {:action => :create, :controller => :payments, :order_id => order.id}]
+      t << [:update]
   	end
   end
   
@@ -15,7 +15,7 @@ class Order < ActiveRecord::Base
   has_many :items
   has_one :payment
   
-  def initialize(hash)
+  def initialize(hash = {})
     super(hash)
     self.status = "unpaid" unless self.status
   end

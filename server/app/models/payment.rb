@@ -6,7 +6,7 @@ class Payment < ActiveRecord::Base
   
   belongs_to :order
   
-  def initialize(hash)
+  def initialize(hash = {})
     super(hash)
     self.payment_date = Time.now unless self.payment_date
   end
