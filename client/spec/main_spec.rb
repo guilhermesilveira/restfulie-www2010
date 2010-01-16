@@ -44,14 +44,14 @@ context Restfulie do
     order = create_order
     order.request.as('application/vnd.restbucks+xml').pay(payment(1)).web_response.code.should == "400"
   end  
-  # 
-  # it "should allow to pay" do
-  #   order = create_order
-  #   order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost)).web_response.code.should == "200"
-  #   order = order.self
-  #   order.web_response.code.should == "200"
-  #   order.status.should == "preparing"
-  # end
+  
+  it "should allow to pay" do
+    order = create_order
+    order.request.as('application/vnd.restbucks+xml').pay(payment(order.cost)).web_response.code.should == "200"
+    order = order.self
+    order.web_response.code.should == "200"
+    order.status.should == "preparing"
+  end
   #   
   #   it "should not allow cancel an order if already paid" do
   #     order = create_order
