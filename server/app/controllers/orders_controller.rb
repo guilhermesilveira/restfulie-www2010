@@ -23,10 +23,10 @@ class OrdersController < ApplicationController
   def pre_update(model)
     debugger
     model[:status] = "unpaid"
-    model["items"] = []
-    # model["items"].map do |item|
-      # Item.new(item)
-    # end
+    # model["items"] = []
+    model["items"].map do |item|
+      Item.new(item)
+    end
   end
 
 end
