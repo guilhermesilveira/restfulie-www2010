@@ -16,12 +16,13 @@ context Restfulie do
                 {:drink => "latte", :milk => "DOUBLE", :size => "SMALL"}
                     ]}.to_xml(:root => "order")
   end
-
+  
   def payment(value)
     {:amount => value, :cardholder_name => "Guilherme Silveira", :card_number => "4004", :expiry_month => 10, :expiry_year => 12}.to_xml(:root => "payment")
   end
   
   def create_order(where = "TO_TAKE")
+    puts new_order("TO_TAKE")
     Restfulie.at('http://localhost:3000/orders').as('application/vnd.restbucks+xml').create(new_order(where))
   end
         
