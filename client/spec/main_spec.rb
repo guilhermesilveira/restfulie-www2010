@@ -22,7 +22,6 @@ context Restfulie do
   end
   
   def create_order(where = "TO_TAKE")
-    puts new_order("TO_TAKE")
     Restfulie.at('http://localhost:3000/orders').as('application/vnd.restbucks+xml').create(new_order(where))
   end
         

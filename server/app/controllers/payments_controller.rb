@@ -14,7 +14,7 @@ class PaymentsController < ApplicationController
     # TODO could be Order.build_payment... do it automatically
     @model = type.from_xml request.body.string
     @model.order = Order.find(params[:order_id])
-    debugger
+    # debugger
     if @model.order.status != "unpaid"
       head 405
     elsif @model.amount != @model.order.cost
