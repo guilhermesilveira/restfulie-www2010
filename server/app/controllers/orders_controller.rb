@@ -1,7 +1,9 @@
 class OrdersController < ApplicationController
   
   include Restfulie::Server::Controller
-  
+
+  cache.allow 2.hours
+
   def index
     @orders = Order.all
   end
@@ -26,6 +28,5 @@ class OrdersController < ApplicationController
       Item.new(item)
     end
   end
-
 
 end
