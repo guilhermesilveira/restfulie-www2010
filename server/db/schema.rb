@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100116230612) do
+ActiveRecord::Schema.define(:version => 20100209161930) do
 
   create_table "items", :force => true do |t|
     t.string   "milk"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(:version => 20100116230612) do
   create_table "payments", :force => true do |t|
     t.string   "cardholder_name"
     t.string   "card_number"
-    t.datetime "payment_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "order_id"

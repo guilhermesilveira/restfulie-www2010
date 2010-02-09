@@ -37,7 +37,7 @@ class PaymentsController < ApplicationController
   
   def receipt
     order = Order.find(params[:order_id])
-    render :xml => order.payment.to_xml(:only => [:amount, :payment_date], :root => :receipt), :content_type => "application/xml"
+    render :xml => order.payment.to_xml(:only => [:amount, :created_at], :root => :receipt), :content_type => "application/xml"
   end
   
 end

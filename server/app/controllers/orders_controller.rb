@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
   def index
     @orders = Order.all
   end
+  
 
   def destroy
     @model = model_type.find(params[:id])

@@ -21,7 +21,7 @@ class Order < ActiveRecord::Base
   end
   
   def status
-    (super=="preparing") && (payment.payment_date < (Time.now - 15.seconds)) ? "ready" : super
+    (super=="preparing") && (payment.created_at < (Time.now - 15.seconds)) ? "ready" : super
   end
   
   def to_xml(options = {})

@@ -5,4 +5,10 @@ class Item < ActiveRecord::Base
     t << [:self, {:action => :show}]
   end
   
+  def to_xml(options = {})
+    options[:except] ||= []
+    options[:except] << :order_id
+    super(options)
+  end
+  
 end
