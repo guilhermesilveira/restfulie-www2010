@@ -9,6 +9,11 @@ class Order < ActiveRecord::Base
       t << [:pay, {:action => :create, :controller => :payments, :order_id => order.id}]
       t << [:update]
     end
+    # def t.relates_to(what)
+      what = :items
+      t << [what.to_s, {:action => :index, :controller => what, :order_id => order.id}]
+    # end
+    # t.relates_to :items
   end
   
   media_type 'application/vnd.restbucks+xml'
