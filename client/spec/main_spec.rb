@@ -30,12 +30,18 @@ context Restfulie do
     order.web_response.is_successful?.should be_true
   end
 
+  it "should allow crawling children" do
+    order = create_order
+    items = order.items(:method => :get)
+    items[1].drink.should == "latte"
+  end
+
   it "should load from cache" do
     order = create_order
     previous_response = order.self.web_response
     order.self.web_response.should == previous_response
   end
-
+  
    it "should cancel an order and delete it from the database" do
      order = create_order
      cancelled = order.cancel
@@ -95,5 +101,6 @@ context Restfulie do
         puts "#{status.user.screen_name}: #{status.text}, #{status.created_at}"
       end
     end
-
+  
+  
 end
