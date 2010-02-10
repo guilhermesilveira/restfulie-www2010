@@ -2,16 +2,7 @@
 
 one:
   amount: 
-  cardholderName: MyString
-  cardNumber: MyString
-  expiryMonth: 
-  expiryYear: 
-  paymentDate: 2010-01-16 21:05:54
-
-two:
-  amount: 
-  cardholderName: MyString
-  cardNumber: MyString
-  expiryMonth: 
-  expiryYear: 
-  paymentDate: 2010-01-16 21:05:54
+  cardholder_name: MyString
+  card_number: MyString
+  expiry_month: 
+  expiry_year: 

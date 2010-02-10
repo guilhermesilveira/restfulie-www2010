@@ -35,4 +35,19 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def raw_post(action, params = {}, body = nil)
+     @request.env['RAW_POST_DATA'] = body
+     response = post(action, params)
+     @request.env.delete('RAW_POST_DATA')
+     response
+  end
+  def as(type)
+    @request.env['CONTENT_TYPE'] = type
+    self
+  end
+  def assert_created(path)
+    assert_response 201
+    assert path == @response.headers['Location']
+  end
+  
 end
