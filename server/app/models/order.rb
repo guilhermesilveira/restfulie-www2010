@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
     t << [:receipt, {:order_id => order, :controller => :payments, :action => :receipt}] if order.status=="delivered"
     if order.status=="unpaid"
       t << [:cancel, {:action => :destroy}]
-      t << [:pay, {:action => :create, :controller => :payments, :order_id => order.id}]
+      t << [:payment, {:action => :create, :controller => :payments, :order_id => order.id}]
       t << [:update]
     end
     # def t.relates_to(what)

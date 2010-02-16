@@ -33,7 +33,7 @@ context Restfulie do
   it "should allow crawling children" do
     order = create_order
     items = order.items(:method => :get)
-    items[1].drink.should == "latte"
+    items[1].drink.should == "LATTE"
   end
   
   it "should load from cache" do
@@ -49,17 +49,17 @@ context Restfulie do
      order.self.web_response.code.should == "404"
    end
    
-   # it "should update an order while possible" do
-   #   order = create_order
-   #   puts order.web_response.body
-   #   puts "foi o que eu tinha---------"
-   #   order = order.update(new_order("EAT_IN"), :method => :put)
-   #   order.web_response.is_successful?.should be_true
-   #   puts "peguei..."
-   #   puts order.web_response.body
-   #   puts "peguei..."
-   #   order.location.should == "EAT_IN"
-   # end
+   it "should update an order while possible" do
+     order = create_order
+     puts order.web_response.body
+     puts "foi o que eu tinha---------"
+     order = order.update(new_order("EAT_IN"), :method => :put)
+     order.web_response.is_successful?.should be_true
+     puts "peguei..."
+     puts order.web_response.body
+     puts "peguei..."
+     order.location.should == "EAT_IN"
+   end
 
    it "should complain if partially paying" do
      order = create_order
