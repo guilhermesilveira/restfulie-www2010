@@ -32,7 +32,7 @@ context Restfulie do
 
   it "should allow crawling children" do
     order = create_order
-    items = order.items(:method => :get)
+    items = order.request.items(:method => :get)
     items[1].drink.should == "LATTE"
   end
   
@@ -51,16 +51,11 @@ context Restfulie do
    
    it "should update an order while possible" do
      order = create_order
-     puts order.web_response.body
-     puts "foi o que eu tinha---------"
      order = order.update(new_order("EAT_IN"), :method => :put)
      order.web_response.is_successful?.should be_true
-     puts "peguei..."
-     puts order.web_response.body
-     puts "peguei..."
      order.location.should == "EAT_IN"
    end
-
+   
    it "should complain if partially paying" do
      order = create_order
      order.request.as('application/vnd.restbucks+xml').payment(payment(1)).web_response.code.should == "400"
@@ -68,7 +63,6 @@ context Restfulie do
    
    it "should allow to pay" do
      order = create_order
-     puts order.web_response.body
      order.request.as('application/vnd.restbucks+xml').payment(payment(order.cost)).web_response.code.should == "200"
      order = order.self
      order.web_response.code.should == "200"
@@ -107,6 +101,6 @@ context Restfulie do
         puts "#{status.user.screen_name}: #{status.text}, #{status.created_at}"
       end
     end
-  
+     
   
 end
