@@ -19,7 +19,7 @@ spec = Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.files = FileList['lib/**/*.rb', '[A-Z]*'].to_a
 
-  s.add_dependency('restfulie', '>= 0.6.0')
+  s.add_dependency('restfulie', '>= 0.7.0')
 
   s.author = AUTHOR
   s.email = EMAIL
